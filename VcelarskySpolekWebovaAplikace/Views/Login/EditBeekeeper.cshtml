@@ -1,0 +1,118 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.vcelari;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Osobní nastavení</a>
+   
+</span>
+
+<h1 class="width70">Osobní údaje včelaře</h1>
+<div class="width70 Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Uživatelské jméno</td>
+                <td>Jméno</td>
+                <td>Příjmení</td>
+                <td>Ulice</td>
+                <td>Město</td>
+                <td>PSC</td>
+                <td>Admin</td>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@this.ViewBag.vcelar.UzivatelskeJmeno</td>
+                <td>@this.ViewBag.vcelar.Jmeno</td>
+                <td>@this.ViewBag.vcelar.Prijmeni</td>
+                <td>@this.ViewBag.vcelar.Ulice</td>
+                <td>@this.ViewBag.vcelar.Mesto</td>
+                <td>@this.ViewBag.vcelar.PSC</td>
+                <td>@this.ViewBag.vcelar.JeAdmin</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<form asp-action="EditBeekeeperSave" class="loginForm" id="frm">
+    <div class="loginForm__border">
+        <h1>Upravit údaje </h1>
+      
+        <h2>Kontaktní údaje</h2>
+       
+        <label asp-for="Ulice">Ulice</label>
+        <div class="loginForm__group">
+
+            <input type="text" asp-for="Ulice" class="loginForm__input" id="inputUlice" value="@this.ViewBag.vcelar.Ulice">
+        </div>
+        <p class="errorMsg" id="errUlice"></p>
+
+        <label asp-for="Mesto">Město</label>
+        <div class="loginForm__group">
+
+            <input type="text" asp-for="Mesto" id="inputMesto" class="loginForm__input" value="@this.ViewBag.vcelar.Mesto">
+        </div>
+        <p class="errorMsg" id="errMesto"></p>
+
+        <label asp-for="PSC">PSČ</label>
+        <div class="loginForm__group">
+
+            <input type="text" asp-for="PSC" id="PSC" class="loginForm__input" value="@this.ViewBag.vcelar.PSC">
+        </div>
+        <p class="errorMsg" id="errPSC"></p>
+
+        <div class="login__button-group">
+            <button type="submit" value="Update" id="btn" class="login_button">Upravit údaje</button>
+
+        </div>
+        
+
+    </div>
+</form>
+<script>
+    var Ulice = document.querySelector('#inputUlice');
+    var Mesto = document.querySelector('#inputMesto');
+    var PSC = document.querySelector('#inputPSC');
+    var errUlice = document.querySelector('#errUlce');
+    var errMesto = document.querySelector('#errMesto');
+    var errPSC = document.querySelector('#errPSC');
+    var button = document.querySelector('#btn');
+    button.addEventListener('click', function (e) {
+        if (Ulice.value.trim().length === 0) {
+            e.preventDefault();
+            errUlice.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errUlice.innerHTML = "";
+        }
+        if (Mesto.value.trim().length === 0) {
+            e.preventDefault();
+            errMesto.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errMesto.innerHTML = "";
+        }
+        if (PSC.value.trim().length === 0) {
+            e.preventDefault();
+            errPSC.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errPSC.innerHTML = "";
+        }
+    })
+</script>
+

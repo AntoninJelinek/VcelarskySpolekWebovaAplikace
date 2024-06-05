@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "Úvodní stránka";
+}
+
+
+<div class="slider">
+    <h1>Vítejte na stránkách webového spolku</h1>
+    <a href="#" class="btn">Dozvědět se více</a>
+</div>
+
+<div class="section_container">
+    <h2 class="flex-center">Základní informace</h2>
+    <div class="section__all width70">
+        <section class="section_flex">
+            <span class="material-symbols-outlined">
+                grid_guides
+            </span>
+            <h3>Lorem ipsum</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste molestiae quaerat quod rerum?
+                Delectus illum ipsa modi nam ratione, recusandae tempora voluptatem. Accusantium eaque eum,
+                laboriosam numquam repellat veritatis.
+            </p>
+        </section>
+        <section class="section_flex">
+            <span class="material-symbols-outlined">
+                grid_guides
+            </span>
+            <h3>Lorem ipsum</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste molestiae quaerat quod rerum?
+                Delectus illum ipsa modi nam ratione, recusandae tempora voluptatem. Accusantium eaque eum,
+                laboriosam numquam repellat veritatis.
+            </p>
+        </section>
+        <section class="section_flex">
+            <span class="material-symbols-outlined">
+                grid_guides
+            </span>
+            <h3>Lorem ipsum</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste molestiae quaerat quod rerum?
+                Delectus illum ipsa modi nam ratione, recusandae tempora voluptatem. Accusantium eaque eum,
+                laboriosam numquam repellat veritatis.
+            </p>
+        </section>
+    </div>
+</div>
+<div class="section_container">
+    <h2 class="flex-center">Nabízené služby</h2>
+    <div class="section__all width70">
+        <section class="section_flex">
+            <span class="material-symbols-outlined">
+                grid_guides
+            </span>
+            <h3>Lorem ipsum</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste molestiae quaerat quod rerum?
+                Delectus illum ipsa modi nam ratione, recusandae tempora voluptatem. Accusantium eaque eum,
+                laboriosam numquam repellat veritatis.
+            </p>
+        </section>
+        <section class="section_flex">
+            <span class="material-symbols-outlined">
+                grid_guides
+            </span>
+            <h3>Lorem ipsum</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste molestiae quaerat quod rerum?
+                Delectus illum ipsa modi nam ratione, recusandae tempora voluptatem. Accusantium eaque eum,
+                laboriosam numquam repellat veritatis.
+            </p>
+        </section>
+        <section class="section_flex">
+            <span class="material-symbols-outlined">
+                grid_guides
+            </span>
+            <h3>Lorem ipsum</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste molestiae quaerat quod rerum?
+                Delectus illum ipsa modi nam ratione, recusandae tempora voluptatem. Accusantium eaque eum,
+                laboriosam numquam repellat veritatis.
+            </p>
+        </section>
+    </div>
+</div>
+
+        
+<div class="width70 flex-space">
+    <h2 class="flex-center">Články</h2>
+   
+</div>
+@foreach(clanky clanek in this.ViewBag.clanky)
+{
+    
+    <div class="article">
+        <a asp-action="Article" asp-route-id="@clanek.idClanku" class="links">
+            <div class="flex-space">
+            <div>
+                <h2>@clanek.NazevClanku</h2>
+                <p>@clanek.DatumPridani | @foreach(vcelari v in this.ViewBag.vcelari)
+                    {
+                        @if (clanek.IdAutora == v.IdVcelare)
+                        {
+                            @v.UzivatelskeJmeno
+                        }
+                    }
+                   
+                </p>
+                @Html.Raw(clanek.Prefix)
+             
+
+            </div>
+                @if (this.ViewBag.vcelarAdminTrue!=null)
+                {
+                    <a class="btn" asp-action="ArticleEdit" asp-controller="Login" asp-route-id="@clanek.idClanku">Upravit článek</a> <a class="btn" asp-controller="Login" asp-action="ArticleDelete" asp-route-id="@clanek.idClanku">Smazat článek</a>
+                }
+            </div>
+        </a>
+    </div>
+   }
+   <div class="flex jcc">
+    <a asp-action="ArticleList" class="btn">Zobrazit všechny články</a>
+
+   </div>
+  

@@ -1,0 +1,66 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.matky;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="MyBees" class="links">Moje včely</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="Mother" class="links">Moje matky</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a class="links">Úprava matky</a>
+</span>
+
+
+<div class="width70">
+    <form asp-action="MotherEdit" asp-route-idMatky="@this.ViewBag.matka.IdMatky" class="editForm" id="MotherForm">
+        <h2>Upravit matku</h2>
+        <div class="editForm__group">
+
+            <label for="place_name">Název matky</label>
+            <input type="text" id="idNazevMatky" class="editForm__Input" value="@this.ViewBag.matka.NazevMatky" asp-for="NazevMatky">
+            <span class="errorMsg" id="errNazevMatky"></span>
+
+
+        </div>
+        <div class="editForm__group">
+            <label for="place_location">Původ</label>
+
+            <input type="text" id="idPuvod" class="editForm__Input" value="@this.ViewBag.matka.Puvod" asp-for="Puvod">
+            <span class="errorMsg" id="errPuvod"></span>
+
+
+        </div>
+        <div class="editForm__group">
+            <label for="place_location">Linie</label>
+
+            <input type="text" id="idLinie" class="editForm__Input" value="@this.ViewBag.matka.Linie" asp-for="Linie">
+            <span class="errorMsg" id="errLinie"></span>
+
+
+        </div>
+        <div class="editForm__group">
+
+            <label>Úhyn</label>
+
+            <input type="checkbox" asp-for="Uhyn">
+
+        </div>
+
+
+        <div class="flex-center">
+            <button class="editForm__button" type="submit" value="Create">Přidat</button>
+
+        </div>
+    </form>
+</div>

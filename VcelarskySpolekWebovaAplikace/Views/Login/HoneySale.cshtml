@@ -1,0 +1,190 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.prodejmedu
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="MyBees" class="links">Moje včely</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Prodej medu</a>
+</span>
+
+
+
+<div class="flex-space">
+    <h1 class="nolefrmargin">Prodej medu</h1>
+    <div>
+        <a href="#" class="btn script" data-modal="modalOne">Přidat záznam</a>
+    </div>
+</div>
+
+
+<div class="width70_margin-btn Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Druh medu</td>
+                <td>Množství (v kg)</td>
+                <td>Cena</td>
+                <td>Datum prodeje</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (prodejmedu pm in ViewBag.Prodejmedu)
+            {
+                <tr>
+                    <td>@pm.DruhMedu</td>
+                    <td>@pm.Mnozstvi</td>
+                    <td>@pm.Cena</td>
+                    <td>@pm.DatumProdeje</td>
+                 
+                 
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div id="modalOne" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="HoneySale" id="HoneySale" asp-route-id="@this.ViewBag.ID" class="editForm">
+                <h2>Nový úl</h2>
+                <label>Druh medu</label>
+                <div class="editForm__group">
+
+
+                    <select name="DruhMedu" asp-for="DruhMedu" id="idDruhMedu" class="editForm__Input">
+                        <option value="" disabled selected>Vyberte typ medu</option>
+                        <option value="Lesní">Lesní</option>
+                        <option value="Květový">Květový</option>
+                        <option value="Lipový">Lipový</option>
+                        <option value="Akátový">Akátový</option>
+                        <option value="Jetelový">Jetelový</option>
+                        <option value="Slunečnicový">Slunečnicový</option>
+                        <option value="Jiný">Jiný</option>
+                    </select>
+                    <span class="errorMsg" id="errDruhMedu"></span>
+
+                </div>
+                <label for="place_location">Množství</label>
+                <div class="editForm__group">
+
+
+                    <input type="number" min="1" step="0.5" asp-for="Mnozstvi" id="idMnozstvi" class="editForm__Input ">
+                    <span class="errorMsg" id="errMnozstvi"></span>
+
+
+                </div>
+                <label>Cena</label>
+                <div class="editForm__group">
+
+
+                    <input type="number" min="0" step="0.5" asp-for="Cena" id="idCena" class="editForm__Input ">
+                    <span class="errorMsg" id="errCena"></span>
+
+
+                </div>
+
+                <label>Datum prodeje</label>
+                <div class="editForm__group">
+
+
+                    <input type="date" asp-for="DatumProdeje" id="idDatumProdeje" class="editForm__Input ">
+                    <span class="errorMsg" id="errDatumProdeje"></span>
+
+
+                </div>
+               
+
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit">Přidat</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let modalBtns = [...document.querySelectorAll(".script")];
+    modalBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.getAttribute("data-modal");
+            document.getElementById(modal).style.display = "block";
+        };
+    });
+    let closeBtns = [...document.querySelectorAll(".close")];
+    closeBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.closest(".modal");
+            modal.style.display = "none";
+        };
+    });
+    window.onclick = function (event) {
+        if (event.target.className === "modal") {
+            event.target.style.display = "none";
+        }
+    };
+</script>
+
+<script>
+    var HoneySale = document.querySelector('#HoneySale');
+    var DruhMedu = document.querySelector('#idDruhMedu');
+    var errDruhMedu = document.querySelector('#errDruhMedu');
+    var Mnozstvi = document.querySelector('#idMnozstvi');
+    var errMnozstvi= document.querySelector('#errMnozstvi');
+    var Cena = document.querySelector('#idCena');
+    var errCana = document.querySelector('#errCena');
+    var DatumProdeje = document.querySelector('#idDatumProdeje');
+    var errDatumProdeje = document.querySelector('#errDatumProdeje');
+
+    HoneySale.addEventListener('submit', function (e) {
+        if (DruhMedu.value.trim().length === 0) {
+            e.preventDefault();
+            errDruhMedu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errDruhMedu.innerHTML = "";
+
+        }
+        if (Mnozstvi.value.trim().length === 0) {
+            e.preventDefault();
+            errMnozstvi.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errMnozstvi.innerHTML = "";
+        }
+        if (Cena.value.trim().length === 0) {
+            e.preventDefault();
+            errCena.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errCena.innerHTML = "";
+        }
+        if (!isNaN(DatumProdeje.value)) {
+            e.preventDefault();
+            errDatumProdeje.innerHTML = "Zadejte platné datum.";
+
+        }
+        else {
+            errDatumProdeje.innerHTML = "";
+
+        }
+           
+    })
+
+
+   
+</script>

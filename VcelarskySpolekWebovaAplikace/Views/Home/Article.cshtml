@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+
+<span class="header__links">
+    <a class="links" href="#">Úvod</a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Články</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">@this.ViewBag.clanek.NazevClanku</a>
+</span>
+
+<div class="articleinside width70">
+    <div>
+        <h1>@this.ViewBag.clanek.NazevClanku</h1>
+        <p>@this.ViewBag.clanek.DatumPridani | @this.ViewBag.Autor</p>
+        <div class="article__text">
+             @Html.Raw(this.ViewBag.clanek.Prefix)
+        </div>
+        <hr>
+        <div class="article__text">
+            @Html.Raw(this.ViewBag.clanek.Obsah)
+       
+        </div>
+    </div>
+</div>

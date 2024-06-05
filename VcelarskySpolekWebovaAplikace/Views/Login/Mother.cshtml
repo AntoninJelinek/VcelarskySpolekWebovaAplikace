@@ -1,0 +1,237 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.matky
+@using Newtonsoft.Json
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    var userInfoJson = Json.Serialize(ViewBag.matka);
+}
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="MyBees" class="links">Moje včely</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Moje matky</a>
+</span>
+
+
+
+<div class="flex-space">
+    <h1 class="nolefrmargin">Správa léčiv</h1>
+
+
+</div>
+
+
+
+<div class="flex-space">
+    <h2>Přehled léčiv</h2>
+    <div>
+        <button class="btn script" data-modal="modalOne">Přidat matku</button>
+
+    </div>
+</div>
+<div class="width70_margin-btn Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Název matky</td>
+                <td>Původ</td>
+                <td>Linie</td>
+                <td>Úhyn</td>
+                <td>Provést akci</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(matky matka in ViewBag.matka)
+            {
+                <tr>
+                    <td>@matka.NazevMatky</td>
+                    <td>@matka.Puvod</td>
+                    <td>@matka.Linie</td>
+                    @if(matka.Uhyn==false)
+                    {
+                        <td>Ne</td>
+                    }
+                    else
+                    {
+                    <td>Ano</td>
+                    }
+
+                    <td>
+                        @if(matka.Uhyn!=true)
+                        {
+                            <a class="btn" value="@matka.IdMatky" asp-action="MotherEdit" asp-route-idMatky="@matka.IdMatky">Upravit</a>
+                        }
+                       
+                        </td>
+                </tr>
+            }
+           
+        </tbody>
+    </table>
+</div>
+
+
+<div id="modalOne" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="Mother" class="editForm" id="MotherForm">
+                <h2>Přidat matku</h2>
+                <div class="editForm__group">
+
+                    <label for="place_name">Název matky</label>
+                    <input type="text" id="idNazevMatky" class="editForm__Input" asp-for="NazevMatky">
+                    <span class="errorMsg" id="errNazevMatky"></span>
+
+
+                </div>
+                <div class="editForm__group">
+                    <label for="place_location">Původ</label>
+
+                    <input type="text" id="idPuvod" class="editForm__Input" asp-for="Puvod">
+                    <span class="errorMsg" id="errPuvod"></span>
+
+
+                </div>
+                <div class="editForm__group">
+                    <label for="place_location">Linie</label>
+
+                    <input type="text" id="idLinie" class="editForm__Input" asp-for="Linie">
+                    <span class="errorMsg" id="errLinie"></span>
+
+
+                </div>
+                <div class="editForm__group">
+
+                    <label>Úhyn</label>
+
+                    <input type="checkbox" asp-for="Uhyn">
+
+                </div>
+
+
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit" value="Create">Přidat</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalTwo" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="MotherEditEdit" class="editForm" id="MotherForm">
+                <h2>Upravit matku</h2>
+                <div class="editForm__group">
+
+                    <label for="place_name">Název matky</label>
+                    <input type="text" id="idNazevMatkyEdit" class="editForm__Input" asp-for="NazevMatky">
+                    <span class="errorMsg" id="errNazevMatkyEdit"></span>
+
+
+                </div>
+                <div class="editForm__group">
+                    <label for="place_location">Původ</label>
+
+                    <input type="text" id="idPuvodEdit" class="editForm__Input" asp-for="Puvod">
+                    <span class="errorMsg" id="errPuvodEdit"></span>
+
+
+                </div>
+                <div class="editForm__group">
+                    <label for="place_location">Linie</label>
+
+                    <input type="text" id="idLinieEdit" class="editForm__Input" asp-for="Linie">
+                    <span class="errorMsg" id="errLinieEdit"></span>
+
+
+                </div>
+                <div class="editForm__group">
+
+                    <label>Úhyn</label>
+
+                    <input type="checkbox" asp-for="Uhyn">
+
+                </div>
+
+
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit" value="Update">Upravit</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let modalBtns = [...document.querySelectorAll(".script")];
+    modalBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.getAttribute("data-modal");
+            document.getElementById(modal).style.display = "block";
+        };
+    });
+    let closeBtns = [...document.querySelectorAll(".close")];
+    closeBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.closest(".modal");
+            modal.style.display = "none";
+        };
+    });
+    window.onclick = function (event) {
+        if (event.target.className === "modal") {
+            event.target.style.display = "none";
+        }
+    };
+
+
+</script>
+<script>
+    var MotherForm = document.querySelector('#MotherForm');
+    var NazevMatky = document.querySelector('#idNazevMatky');
+    var errNazevMatky = document.querySelector('#errNazevMatky');
+    var Puvod = document.querySelector('#idPuvod');
+    var errPuvod = document.querySelector('#errPuvod');
+    var Linie = document.querySelector('#idLinie');
+    var errLinie = document.querySelector('#errLinie')
+
+
+    MotherForm.addEventListener('submit', function (e) {
+        if (NazevMatkyEdit.value.trim().length === 0) {
+            e.preventDefault();
+            errNazevMatkyEdit.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errNazevMatkyEdit.innerHTML = "";
+
+        }
+        if (PuvodEdit.value.trim().length === 0) {
+            e.preventDefault();
+            errPuvodEdit.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errPuvod.innerHTML = "";
+        }
+        if (LinieEdit.value.trim().length === 0) {
+            e.preventDefault();
+            errLinieEdit.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errLinieEdit.innerHTML = "";
+        }
+    })
+</script>

@@ -1,0 +1,639 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    align-items: stretch;
+    padding: 5px;
+    min-height: 65px;
+}
+
+.navigation__list {
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+}
+
+.navigation__list-item {
+    list-style-type: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    flex-shrink: 0;
+}
+
+.navigation__list-item-link {
+    text-decoration: none;
+    color: white;
+}
+
+.navigation__list-item:hover {
+    background-color: orange;
+}
+
+.navigation__list-item .navigation__list-item-dropdown-group {
+    display: block;
+    margin-top: 60px;
+}
+
+.navigation__list-item:hover > .navigation__list-item-link {
+    color: black;
+}
+
+.navigation__login-button {
+    background-color: orange;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid orange;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+    .navigation__login-button:hover {
+        background-color: black;
+        color: orange;
+        border-radius: 5px;
+        border-color: orange;
+    }
+
+.material-symbols-outlined {
+    margin-right: 5px;
+}
+
+.flex {
+    display: flex;
+}
+
+.navigation__logo {
+    max-width: 50%;
+}
+
+.footer {
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer__div-item {
+    list-style-type: none;
+}
+
+.footer__div-Link {
+    color: white;
+}
+
+.footer__div-h2 {
+    color: orange;
+    text-align: center;
+}
+
+.navigation__list-item-dropdown-group {
+    display: none;
+    position: absolute;
+    background-color: orange;
+}
+
+.navigation__list-item-dropdown {
+    display: block;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm__border {
+    border: 3px solid orange;
+    border-radius: 5px;
+    padding: 50px;
+    margin: 50px;
+}
+
+.loginForm__group {
+    display: flex;
+    justify-content: center;
+    border: 1px solid orange;
+    border-radius: 5px;
+}
+
+.loginForm__input {
+    border: none;
+    padding: 5px;
+    min-width: 400px;
+}
+
+.login__button-group {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 20px;
+}
+
+.loginForm__icon {
+    background-color: orange;
+    border-radius: 5px 0 0 5px;
+    padding: 5px;
+}
+
+.login_button {
+    background-color: orange;
+    border: 2px solid orange;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+    .login_button:hover {
+        background-color: white;
+        color: orange;
+    }
+
+.login_buttonInvert {
+    font-size: 0.75rem;
+    background-color: white;
+    border: 1px solid orange;
+    border-radius: 5px;
+    color: orange;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    text-decoration: none;
+}
+
+    .login_buttonInvert:hover {
+        background-color: orange;
+        color: black;
+    }
+
+.loginForm__input:focus {
+    outline: none;
+}
+
+hr {
+    border: 0.5px solid orange;
+    margin-top: 15px;
+}
+
+.errorMsg {
+    font-weight: bold;
+    color: red;
+}
+
+.navigation__logedin {
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation__logedinUserName {
+    font-weight: bold;
+}
+
+.menuContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+}
+
+.menuContainer__item {
+    border: 2px solid orange;
+    background-color: orange;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+    .menuContainer__item:hover {
+        border: 2px solid orange;
+        background-color: black;
+    }
+
+        .menuContainer__item:hover .menuContainer__link {
+            color: orange;
+        }
+
+.menuContainer__link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.menuContainer__linktext {
+    margin: 0;
+}
+
+.menuContainer__linkIcon {
+    font-size: xxx-large; /* Ignorovat Error List ve VS, jedná se o platnou hodnotu. (Alespoò ve Chromu funguje)*/
+}
+
+.main__h1 {
+    margin-left: 20px;
+}
+
+.chat {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: auto auto 25px auto;
+    width: 70%;
+    padding: 15px;
+}
+
+.chat__message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 15px;
+    padding: 5px;
+}
+
+.chat__message__delivered {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+}
+
+.chat__userIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 35px;
+}
+
+    .chat__userIcon span {
+        font-size: 30px;
+    }
+
+.nopadding {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.chat__message__send {
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+}
+
+.chat__textbox {
+    margin: auto auto 25px auto;
+    width: 60%;
+}
+
+.chat_header {
+    text-align: center;
+    word-wrap: break-word;
+    margin: auto;
+    width: 90%;
+}
+
+.chat__textbox-form {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+}
+
+.chat__textbox-form-input {
+    width: 100%;
+    background: none;
+    border: none;
+}
+
+.chat__textbox-form-link {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-decoration: none;
+    color: black;
+    background: none;
+    border: none;
+}
+
+.chat__textbox-form-link-icon {
+    background-color: orange;
+    border-radius: 50%;
+    padding: 5px;
+    transform: rotate(-45deg);
+}
+
+    .chat__textbox-form-link-icon:hover {
+        background: white;
+        color: orange;
+    }
+
+.chat__buttons {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 15px;
+}
+
+.chat__buttons-previous {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.chat__buttons-next {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+}
+
+.header__links {
+    display: flex;
+    align-items: center;
+    margin: 24px auto 3px auto;
+    width: 70%;
+    padding: 5px;
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+}
+
+.links {
+    text-decoration: none;
+    color: black;
+}
+
+.menu__option-main {
+    padding: 10px;
+    margin: auto auto 10px auto;
+    width: 70%;
+    background-color: orange;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.menu__icon {
+    font-size: 50px;
+}
+
+
+/*****************************************************TADY*****************************************************/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 8;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    margin: 50px auto;
+    width: 60%;
+}
+
+span {
+}
+
+form {
+    padding: 25px;
+    margin: 25px;
+    background: white;
+    border-radius: 5px;
+}
+
+.editForm__Input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    outline: none;
+    border: 1px solid orange;
+    border-radius: 5px;
+    box-sizing: content-box;
+}
+
+button:hover {
+    background: #2371a0;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+button.button {
+    background: none;
+    border-top: none;
+    outline: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: #02274a 1px solid;
+    padding: 0 0 3px 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    button.button:hover {
+        border-bottom: #a99567 1px solid;
+        color: #a99567;
+    }
+
+.editForm {
+    background: white;
+    border-radius: 5px;
+    border: 3px solid orange;
+    padding: 50px;
+    margin: 50px;
+}
+
+.editForm__button {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-space {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 70%;
+}
+
+.btn {
+    text-decoration: none;
+    color: black;
+    border: 3px solid orange;
+    background-color: orange;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+    .btn:hover {
+        color: orange;
+        background-color: white;
+        color: orange;
+    }
+
+.nolefrmargin {
+    margin-left: 0;
+}
+
+.width70 {
+    margin: auto;
+    width: 70%;
+}
+
+.Form__border {
+    border: 3px solid orange;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+.tb tbody tr td {
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.tb thead {
+    background-color: orange;
+    font-weight: bold;
+    border: 1px solid orange;
+}
+
+.tb {
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+}
+
+.Table__border {
+    border: 3px solid orange;
+    border-radius: 5px;
+}
+
+.width70_margin-btn {
+    margin: auto auto 20px auto;
+    width: 70%;
+}
+
+.noborder {
+    padding: 0;
+    margin: 0 5px 0 0;
+}
+
+.article {
+    border: 3px solid orange;
+    margin: 25px auto 25px auto;
+    width: 70%;
+    padding: 5px;
+}
+
+    .article:hover {
+        border: 5px solid orange;
+    }
+
+.tox:not([dir=rtl]) {
+    border: 1px solid orange;
+    margin-bottom: 25px;
+}
+
+.margin-top {
+    margin-top: 25px;
+}
+
+.slider {
+    background-image: linear-gradient(to right, #FFA500, #FFB733);
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.section__all {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section_flex {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+    .section_flex > span {
+        background-color: orange;
+        padding: 30px;
+        border-radius: 50%;
+    }
+    .jcc {
+        justify-content: center;
+    }
+    .aic {
+        align-items: center;
+    }
+    .border-orange {
+        border: 1px solid orange;
+        border-radius: 5px;
+    }
+
+    .margin {
+        margin-left: 5px;
+        margin-right: 5px;
+    }

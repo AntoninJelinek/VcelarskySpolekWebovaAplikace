@@ -1,0 +1,46 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.vcelari
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    
+*@
+@{
+
+    ViewData["Title"] = "Přihlásit";
+    
+
+}
+
+<div>
+
+    <form asp-action="Login" method="post" class="loginForm">
+        <div class="loginForm__border">
+            <h1>Přihlásit se </h1>
+            
+           
+            <label asp-for="UzivatelskeJmeno">Jméno</label>
+            <div class="loginForm__group">
+                <span class="material-symbols-outlined loginForm__icon">
+                    person
+                </span>
+                <input type="text" asp-for="UzivatelskeJmeno" class="loginForm__input">
+            </div>
+            <label asp-for="Heslo">Heslo</label>
+            <div class="loginForm__group">
+                <span class="material-symbols-outlined loginForm__icon">
+                    vpn_key
+                </span>
+                <input type="password" asp-for="Heslo" class="loginForm__input">
+            </div>
+            @if(ViewBag.ErrorMsg != null) {
+                <span  class="errorMsg">@ViewBag.ErrorMsg</span>
+            }
+
+            <div class="login__button-group">
+                <button class="login_button">Přihlásit se</button>
+                <a asp-action="Register" class="login_buttonInvert">Registrovat se</a>
+            </div>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+<span class="header__links">
+    <a class="links" href="#">Úvod</a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Články</a>
+</span>
+
+<div class="width70 flex-space">
+    <h1>Články</h1>
+    @if (this.ViewBag.vcelarAdminTrue != null)
+    {
+        <a class="btn" asp-action="ArticleAdd" asp-controller="Login">Přidat článek</a>
+    }
+
+</div>
+
+<div class="chat__buttons">
+    @if (ViewBag.counter != 0)
+    {
+        <a asp-action="ArticleList" asp-route-id="@ViewBag.counterPrevious" class="chat__buttons-previous">
+            <span class="material-symbols-outlined">
+                navigate_before
+            </span><span>Předchozí</span>
+        </a>
+    }
+    @if (ViewBag.PocetClanku >= ViewBag.CelkemClanku)
+    {
+        <a asp-route-id="@ViewBag.counterNext" class="chat__buttons-next">
+            <span>Následující</span><span class="material-symbols-outlined">
+                navigate_next
+            </span>
+        </a>
+    }
+
+</div>
+
+@foreach(clanky clanek in this.ViewBag.clanky)
+{
+    
+    <div class="article">
+        <a asp-action="Article" asp-route-id="@clanek.idClanku" class="links">
+            <div class="flex-space">
+            <div>
+                <h2>@clanek.NazevClanku</h2>
+                <p>@clanek.DatumPridani | @foreach(vcelari v in this.ViewBag.vcelari)
+                    {
+                        @if (clanek.IdAutora == v.IdVcelare)
+                        {
+                            @v.UzivatelskeJmeno
+                        }
+                    }
+                   
+                </p>
+                @Html.Raw(clanek.Prefix)
+             
+
+            </div>
+                @if (this.ViewBag.vcelarAdminTrue!=null)
+                {
+                    <a class="btn" asp-action="ArticleEdit" asp-controller="Login" asp-route-id="@clanek.idClanku">Upravit článek</a> <a class="btn" asp-controller="Login" asp-action="ArticleDelete" asp-route-id="@clanek.idClanku">Smazat článek</a>
+                }
+            </div>
+        </a>
+    </div>
+}
+

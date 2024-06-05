@@ -1,0 +1,142 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.stanoviste;
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="MyBees" class="links">Moje včely</a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Moje stanoviště</a>
+</span>
+<div class="flex-space">
+    <h1 class="nolefrmargin">Moje stanoviště</h1>
+    <a href="#" class="btn script" data-modal="modalOne">Přidat stanoviště</a>
+</div>
+
+
+
+@foreach(stanoviste stan in ViewBag.Stanoviste)
+{
+    <a class="menu__option-main links" asp-action="Hive" asp-route-id="@stan.IdStanoviste">
+
+        <span class="material-symbols-outlined menu__icon">
+            location_on
+        </span>
+        <div class="main__option-description">
+            <h2>@stan.NazevStanoviste</h2>
+            <p class="nopadding">@stan.UmisteniStanoviste</p>
+            <p class="nopadding">@stan.TypStanoviste</p>
+        </div>
+    </a>
+}
+
+
+
+<div id="modalOne" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="Location" class="editForm">
+                <h2>Nové stanoviště</h2>
+                <label>Název stanoviště</label>
+                <div class="editForm__group">
+                    <div class="editForm__group">
+
+                        <input type="text" id="StanName" asp-for="NazevStanoviste" class="editForm__Input ">
+                        <span class="errorMsg" id="errStanName"></span>
+
+                    </div>
+
+                </div>
+                <label>Umístění stanoviště</label>
+                <div class="editForm__group">
+                    <div class="editForm__group">
+
+                        <input type="text" id="StanLocation" asp-for="UmisteniStanoviste" class="editForm__Input ">
+                        <span class="errorMsg" id="errStanLocation"></span>
+                    </div>
+
+                </div>
+                <label>Typ stanoviště</label>
+                <div class="editForm__group">
+                    <div class="editForm__group">
+
+                        <input type="text" id="StanType" asp-for="TypStanoviste" class="editForm__Input ">
+                        <span class="errorMsg" id="errStanType"></span>
+                    </div>
+
+                </div>
+
+                <div class="flex-center">
+                    <button type="submit" value="Create" class="editForm__button" href="/">Přidat stanoviště</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    let modalBtns = [...document.querySelectorAll(".script")];
+    modalBtns.forEach(function (btn) {
+      btn.onclick = function () {
+        let modal = btn.getAttribute("data-modal");
+        document.getElementById(modal).style.display = "block";
+      };
+    });
+    let closeBtns = [...document.querySelectorAll(".close")];
+    closeBtns.forEach(function (btn) {
+      btn.onclick = function () {
+        let modal = btn.closest(".modal");
+        modal.style.display = "none";
+      };
+    });
+    window.onclick = function (event) {
+      if (event.target.className === "modal") {
+        event.target.style.display = "none";
+      }
+    };
+</script>
+<script>
+    var form = document.querySelector('form');
+    var StanName = document.querySelector('#StanName');
+    var StanLocation = document.querySelector('#StanLocation')
+    var StanType = document.querySelector('#StanType');
+    var errStanName = document.querySelector('#errStanName');
+    var errStanLocation = document.querySelector('#errStanLocation');
+    var errStanType = document.querySelector('#errStanType');
+
+    form.addEventListener('submit', function (e) {
+        if (StanName.value.trim().length === 0) {
+            e.preventDefault();
+            errStanName.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errStanName.innerHTML = "";
+
+        }
+        if (StanLocation.value.trim().length === 0) {
+            e.preventDefault();
+            errStanLocation.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errStanLocation.innerHTML = "";
+        }
+        if (StanType.value.trim().length === 0) {
+            e.preventDefault();
+            errStanType.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errStanType.innerHTML = "";
+        }
+    })
+</script>

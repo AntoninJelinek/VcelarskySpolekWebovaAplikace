@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "";
+}
+
+<div class="width70">
+    <h1>Úvod</h1>
+
+</div>
+
+<div class="menuContainer width70">
+    <div class="menuContainer__item">
+        <a asp-action="MyBees" class="menuContainer__link">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                emoji_nature
+            </span>
+            <p class="menuContainer__linktext">Moje včely</p>
+        </a>
+    </div>
+
+    <div class="menuContainer__item">
+        <a asp-action="Chat" class="menuContainer__link">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                chat
+            </span>
+            <p class="menuContainer__linktext">Diskusní chat</p>
+        </a>
+    </div>
+    <div class="menuContainer__item">
+        <a asp-action="Files" class="menuContainer__link">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                draft
+            </span>
+            <p class="menuContainer__linktext">Soubory</p>
+        </a>
+    </div>
+
+    <div class="menuContainer__item">
+        <a asp-action="Stats" class="menuContainer__link">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                query_stats
+            </span>
+            <p class="menuContainer__linktext">Statistiky a sestavy</p>
+        </a>
+    </div>
+    <div class="menuContainer__item">
+        <a asp-action="EditBeekeeper" class="menuContainer__link">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                settings
+            </span>
+            <p class="menuContainer__linktext">Nastavení osobních údajů</p>
+        </a>
+    </div>
+    @if (this.ViewBag.vcelar.OverenyClen == true || this.ViewBag.vcelar.JeAdmin ==true)
+    {
+        <div class="menuContainer__item">
+            <a asp-action="AdminMenu" class="menuContainer__link">
+            <span class="material-symbols-outlined  menuContainer__linkIcon">
+                admin_panel_settings
+            </span>
+            <p class="menuContainer__linktext">Administrace</p>
+        </a>
+    </div>
+    }
+
+
+</div>

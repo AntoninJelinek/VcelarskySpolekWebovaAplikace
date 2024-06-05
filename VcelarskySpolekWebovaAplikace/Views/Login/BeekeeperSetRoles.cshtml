@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="AdminMenu" class="links">Administrace</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Správa uživatelů</a>
+</span>
+
+<h1 class="width70">Osobní údaje včelaře</h1>
+<div class="width70 Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Uživatelské jméno</td>
+                <td>Jméno</td>
+                <td>Příjmení</td>
+                <td>Ulice</td>
+                <td>Město</td>
+                <td>PSC</td>
+                <td>Ověřený člen</td>
+                <td>Admin</td>
+                <td>Provést akci</td>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (vcelari vcelar in this.ViewBag.vcelari)
+            {
+                <tr>
+                    <td>@vcelar.UzivatelskeJmeno</td>
+                    <td>@vcelar.Jmeno</td>
+                    <td>@vcelar.Prijmeni</td>
+                    <td>@vcelar.Ulice</td>
+                    <td>@vcelar.Mesto</td>
+                    <td>@vcelar.PSC</td>
+                    <td>@vcelar.OverenyClen</td>
+                    <td>@vcelar.JeAdmin</td>
+                    <td><a class="btn" asp-action="Verify" asp-route-id="@vcelar.IdVcelare">Ověřit včelaře</a><a class="btn" asp-action="AdminAdd" asp-route-id="@vcelar.IdVcelare">Přidat administrátorská práva</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,959 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering;
+@model VcelarskySpolekWebovaAplikace.Models.HiveDetailModel;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="MyBees"class="links">Moje včely</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="Location" class="links">Moje stanoviště</a> <span class="material-symbols-outlined">
+        chevron_right
+    </span>
+    <a asp-action="Hive" asp-route-id="@ViewBag.stan.IdStanoviste" class="links">@ViewBag.stan.NazevStanoviste</a> <span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">@ViewBag.ul.OznaceniUlu</a>
+</span>
+
+
+
+<div class="flex-space">
+    <h1 class="nolefrmargin">Úl1</h1>
+
+    <div>
+        <a href="#" class="btn script" data-modal="modalOne">Upravit úl</a>
+    </div>
+</div>
+
+
+<div class="width70">
+    <h2>Informace o úlu</h2>
+</div>
+
+<div class="width70 Form__border">
+    <p>Typ úlu: <span>@ViewBag.ul.TypUlu</span> </p>
+    <p>Typ rámku: <span>@ViewBag.ul.TypRamku</span> </p>
+    <p>Počet nástavků: <span>@ViewBag.ul.PocetNastavku</span> </p>
+
+</div>
+<div class="flex-space">
+    <h2>Informace o včelstvu</h2>
+    @if(this.ViewBag.vcelstvo == null)
+    {
+        <div>
+            <button class="btn script" data-modal="modalTwo">Přidat včelstvo</button>
+
+        </div>
+    }
+    else
+    {
+        <div>
+            <button class="btn script" data-modal="modalTwo">Upravit včelstvo</button>
+
+        </div>
+    }
+
+</div>
+@if(this.ViewBag.vcelstvo!=null)
+{
+    
+
+<div class="width70 Form__border">
+    <p>Název včelstva: @if (this.ViewBag.vcelstvo != null)
+        {
+            <span>@ViewBag.vcelstvo.NazevVcelstva
+            </span>
+        }
+    </p>
+    <p>Typ včelstva:@if (this.ViewBag.vcelstvo != null)
+        {
+            <span>@ViewBag.vcelstvo.TypVcelstva</span>
+
+        }
+    </p>
+    <p>   Název včelstva: @if (this.ViewBag.vcelstvo != null)
+        {
+            <span>@ViewBag.vcelstvo.NazevVcelstva</span>
+        }
+    </p>
+    <p>
+        Datum přidání do úlu:@if (this.ViewBag.vu != null)
+        {
+            <span>@ViewBag.vu.DatumPridani</span>
+        }
+       
+       </p>
+</div>
+<div class="flex-space">
+    <h2>Informace o matce</h2>
+    <div class="flex">
+        @if(this.ViewBag.mv!=null )
+        {
+            <form asp-action="RemoveMother" asp-route-idMatky="@this.ViewBag.mv.IdMatky" asp-route-id="@ViewBag.ul.IdUlu" class="noborder">
+             <button class="btn">Odebrat matku</button>
+            </form>
+
+        }
+        else
+        {
+            <button class="btn script" data-modal="modalTr">Upravit</button>
+
+        }
+
+    </div>
+</div>
+
+<div class="width70 Form__border">
+    <p>Název matky:
+        @if(this.ViewBag.matka != null)
+        {
+            <span>@this.ViewBag.matka.NazevMatky</span>
+        }
+    </p>
+    <p>Datum přidání do úlu:
+        @if(this.ViewBag.mv!=null)
+        {
+            <span>@this.ViewBag.mv.DatumPridani</span>
+        }
+    </p>
+</div>
+<div class="flex-space">
+    <h2>Krmení</h2>
+    <div>
+        <button class="btn script" data-modal="modalFour">Upravit</button>
+
+    </div>
+</div>
+<div class="width70 Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Datum krmení</td>
+                <td>Krmná látka</td>
+                <td>Množství</td>
+                <td>Jednotky</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if(this.ViewBag.ek !=null)
+            {
+                @foreach (evidencekrmeni ek in this.ViewBag.ek)
+                {
+                    <tr>
+                        <td>@ek.DatumKrmeni</td>
+                        @foreach(krmiva k in this.ViewBag.k)
+                        {
+                            if(ek.idKrmeni==k.idKrmiva)
+                            {
+                                <td>@k.NazevKrmiva</td>
+                            }
+                        }
+                      
+                        <td>@ek.Mnozstvi</td>
+                        @foreach (krmiva k in this.ViewBag.k)
+                        {
+                            if (ek.idKrmeni == k.idKrmiva)
+                            {
+                                <td>@k.Jednotky</td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+           
+            
+          
+        </tbody>
+    </table>
+</div>
+<div class="flex-space">
+    <h2>Léčba</h2>
+    <div>
+        <button class="btn script" data-modal="modalFive">Upravit</button>
+
+    </div>
+</div>
+<div class="width70 Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Datum léčby</td>
+                <td>Léčebná látka</td>
+                <td>Způsob ošetření</td>
+                <td>Množství</td>
+                <td>Jednotky</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if (this.ViewBag.ek != null)
+            {
+                @foreach (evidenceleceni el in this.ViewBag.el)
+                {
+                    <tr>
+                        <td>@el.DatumLeceni</td>
+                        @foreach (leceni l in this.ViewBag.l)
+                        {
+                            if (el.idLeciva ==l.idLeciva)
+                            {
+                                <td>@l.NazevLeceni</td>
+                            }
+                        }
+
+                        <td>@el.TypOsetreni</td>
+                        <td>@el.Mnozstvi</td>
+                        @foreach (leceni l in this.ViewBag.l)
+                        {
+                            if (el.idLeciva ==l.idLeciva)
+                            {
+                                <td>@l.Jednotky</td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="flex-space">
+    <h2>Med</h2>
+    <div>
+        <button class="btn script" data-modal="modalSix">Přidat vytáčení medu</button>
+
+    </div>
+</div>
+<div class="width70 Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Datum vytáčení</td>
+                <td>Druh medu</td>
+                <td>Množství (v kg)</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if(this.ViewBag.pm!=null)
+            {
+                @foreach(produkcemedu pm in this.ViewBag.pm)
+                {
+                    <tr>
+                        <td>@pm.DatumVytaceni</td>
+                        <td>@pm.TypMedu</td>
+                        <td>@pm.Mnozstvi</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div class="flex-space">
+    <h2>Poznámky včelaře</h2>
+    <div>
+        <button class="btn script" data-modal="modalSeven">Upravit</button>
+
+    </div>
+</div>
+<div class="width70 Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Datum</td>
+                <td>Poznámka</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            @if (this.ViewBag.zaznamy != null)
+            {
+                @foreach (zaznamy zaznam in this.ViewBag.zaznamy)
+                {
+                    <tr>
+                        <td>@zaznam.DatumZaznamu</td>
+                        <td>@zaznam.Zaznam</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+}
+<div id="modalOne" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form  class="editForm" id="HiveForm" asp-action="HiveEdit" asp-route-id="@ViewBag.ul.IdUlu">
+                <h2>Upravit úl</h2>
+                <label for="place_name">Název úlu</label>
+                <div class="editForm__group">
+                 
+
+                        <input type="text" asp-for="uly.OznaceniUlu" id="idNazevUlu" class="editForm__Input" value="@ViewBag.ul.OznaceniUlu">
+                        <span class="errorMsg" id="errNazevUlu"></span>
+
+
+                  
+
+                </div>
+                <label for="place_location">Typ úlu</label>
+                <div class="editForm__group">
+
+
+                    <input type="text" asp-for="uly.TypUlu" id="idTypUlu" class="editForm__Input" value="@ViewBag.ul.TypUlu">
+                    <span class="errorMsg" id="errTypUlu"></span>
+
+                   
+
+                </div>
+                <label>Počet nástavků v úlu</label>
+                <div class="editForm__group">
+
+
+                    <input type="number" asp-for="uly.PocetNastavku" class="editForm__Input" id="idNastavkyUl" value="@ViewBag.ul.PocetNastavku">
+                    <span class="errorMsg" id="errNastavkyUl"></span>
+
+                
+
+                </div>
+                <label>Hmotnost Úlu</label>
+                <div class="editForm__group">
+
+
+                    <input type="text" asp-for="uly.HmotnostUlu" class="editForm__Input" id="idHmotnostUlu" value="@ViewBag.ul.HmotnostUlu">
+                    <span class="errorMsg" id="errHmotnostUlu"></span>
+
+
+                </div>
+                <label>Typ rámku</label>
+                <div class="editForm__group">
+
+
+                    <input type="text" asp-for="uly.TypRamku"  class="editForm__Input" id="idTypRamku" value="@ViewBag.ul.TypRamku">
+                    <span class="errorMsg" id="errTypRamku"></span>
+
+                    
+                </div>
+
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit" value="Update" href="/">Upravit</button>
+
+                </div>
+                <input type="hidden" asp-for="uly.idStanoviste" value="@ViewBag.ul.idStanoviste">
+                <input type="hidden" asp-for="uly.IdUlu" value="@ViewBag.ul.IdUlu">
+                <input type="hidden" asp-for="uly.IdVcelare" value="@ViewBag.ul.IdUlu">
+            </form>
+        </div>
+    </div>
+</div>
+<div id="modalTwo" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            
+            <form asp-action="BeehiveEdit" asp-route-id="@ViewBag.ul.IdUlu" class="editForm" id="BeehivesForm">
+                @if(ViewBag.vcelstvo ==null)
+                {
+                    <h2>Přidat včelstvo</h2>
+
+                }
+                else
+                {
+                    <h2>Upravit včelstvo</h2>
+
+                }
+
+                <label>Název včelstva</label>
+                <div class="editForm__group">
+                    
+                    @if(ViewBag.vcelstvo==null)
+                    {
+                        <input type="text" class="editForm__Input" id="idNazevVcelstva" asp-for="vcelstva.NazevVcelstva">
+
+                    }
+                    else
+                    {
+                        <input type="text" class="editForm__Input" id="idNazevVcelstva" asp-for="vcelstva.NazevVcelstva" value="@ViewBag.vcelstvo.NazevVcelstva">
+
+                    }
+                    <span class="errorMsg" id="errNazevVcelstva"></span>
+                </div>
+
+                <label>Druh včelstva</label>
+                <div class="editForm__group">
+
+                    
+                    <select name="vcelstva.TypVcelstva" asp-for="vcelstva.TypVcelstva" id="idDruhVcelstva" class="editForm__Input">
+                        <option value="" disabled selected>Vyberte typ včelstva</option>
+                        <option value="Produkční">Produkční</option>
+                        <option value="Oddělek">Oddělek</option>
+                        <option value="Smetenec">Smetenec</option>
+                        <option value="Roj">Roj</option>
+                        </select>
+
+                    <span class="errorMsg" id="errDruhVcelstva"></span>
+
+                </div>
+
+                <label>Datum přidání</label>
+                <div class="editForm__group">
+                  
+                    @if(ViewBag.vcelstvo==null)
+                    {
+                        <input type="date" class="editForm__Input" id="idDatumPridani" asp-for="vcelstvauly.DatumPridani">
+ 
+                    }
+                    else
+                    {
+                        <input type="date" class="editForm__Input" id="idDatumPridani" asp-for="vcelstvauly.DatumPridani" value="@ViewBag.vu.DatumPridani">
+
+                    }
+                    <span class="errorMsg" id="errDatumPridani"></span>
+                    <input type="hidden" asp-for="vcelstva.IdVcelare" value="@ViewBag.ul.IdVcelare">
+                    <input type="hidden" asp-for="vcelstva.IdUlu" value="@ViewBag.ul.IdUlu">
+                  
+                </div>
+                @if(this.ViewBag.vcelstvo == null)
+                {
+                    <div class="flex-center">
+                        <button class="editForm__button" type="submit" value="Create">Přidat včelstvo</button>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="flex-center">
+                        <button class="editForm__button" type="submit" value="Create">Upravit včelstvo</button>
+
+                    </div>
+                }
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalTr" class="modal" >
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="MotherForm" asp-route-id="@ViewBag.ul.IdUlu" class="editForm" id="MotherForm">
+                <h2>Informace o matce</h2>
+
+
+                <div class="editForm__group">
+                    <label>Název matky</label>
+
+                     <select name="matkavcelstva.IdMatky" asp-for="matkavcelstva.IdMatky"  asp-items="ViewBag.DostupneMatky"   id="idDruhVcelstva" class="editForm__Input">
+                    
+
+                        <option value="" disabled selected>Vyberte volnou matku, je-li k dispozici.</option>
+                       
+                       
+                    </select>
+                    <input type="date" asp-for="matkavcelstva.DatumPridani" class="editForm__Input" id="idNazevMatky">
+                    <span class="errorMsg" id="errNazevMatky"></span>
+
+                </div>
+
+
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit" value="Create">Uložit</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if(this.ViewBag.vcelstvo!=null)
+{
+<div id="modalFour" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="FeedAdd" class="editForm" id="FeedForm" asp-route-id="@ViewBag.ul.IdUlu" asp-route-idVcelstva="@ViewBag.vcelstvo.IdVcelstva">
+                <h2>Informace o krmení</h2>
+                <label>Datum krmení</label>
+                <div class="editForm__group">
+                   
+
+                        <input type="date" class="editForm__Input" asp-for="evidencekrmeni.DatumKrmeni" id="idDatumKrmeni">
+                    <span class="errorMsg" id="errDatumKrmeni"></span>
+
+                  
+                </div>
+
+                <label>Krmná látka</label>
+                <div class="editForm__group">
+
+                    
+                    <select name="evidencekrmeni.idKrmeni" asp-for="evidencekrmeni.idKrmeni" asp-items="ViewBag.Krmiva" id="idKrmnaLatka" class="editForm__Input">
+
+
+                        <option value="" disabled selected>Vyberte krmnou látku.</option>
+
+
+                    </select>
+                    <span class="errorMsg" id="errKrmnaLatka"></span>
+
+                    
+                </div>
+                <label>Množství</label>
+                <div class="editForm__group">
+                 
+
+                        <input type="number" class="editForm__Input" id="idMnozstviKrmeni" asp-for="evidencekrmeni.Mnozstvi" min="0">
+                    <span class="errorMsg" id="errMnozstviKrmeni"></span>
+                  
+                </div>
+                <label>Jednotky</label>
+                
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit">Přidat krmení</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalFive" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="MedicineAdd" class="editForm" id="MedicineForm" asp-route-id="@ViewBag.ul.IdUlu" asp-route-idVcelstva="@ViewBag.vcelstvo.IdVcelstva">
+                <h2>Informace o léčení</h2>
+                <label>Datum léčení</label>
+                <div class="editForm__group">
+                   
+
+                        <input type="date" class="editForm__Input" id="idDatumLeceni" asp-for="evidenceleceni.DatumLeceni">
+                    <span class="errorMsg" id="errDatumLeceni"></span>
+                   
+                </div>
+
+                <label>Léčebná látka</label>
+                <div class="editForm__group">
+
+
+                    <select name="evidenceleceni.idLeciva" asp-for="evidenceleceni.idLeciva" asp-items="ViewBag.Leciva" id="idLecebnaLatka" class="editForm__Input">
+
+
+                        <option value="" disabled selected>Vyberte léčivou látku.</option>
+
+
+                    </select>
+                    <span class="errorMsg" id="errLecebnaLatka"></span>
+                 
+                </div>
+
+                <label>Typ ošetření</label>
+                <div class="editForm__group">
+                  
+
+                        <input type="text" class="editForm__Input" id="idZpusobOsetreni" asp-for="evidenceleceni.TypOsetreni">
+                    <span class="errorMsg" id="errZpusobOsetreni"></span>
+                   
+                </div>
+                <label>Množství</label>
+                <div class="editForm__group">
+                
+
+                        <input type="number" class="editForm__Input" id="idMnozstviLeceni" asp-for="evidenceleceni.Mnozstvi">
+                    <span class="errorMsg" id="errMnozstviLeceni"></span>
+                    
+                </div>
+                
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit">Přidat léčení</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalSix" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="HoneyAdd" class="editForm" id="HoneyForm" asp-route-id="@ViewBag.ul.IdUlu" asp-route-idVcelstva="@ViewBag.vcelstvo.IdVcelstva">
+                <h2>Med</h2>
+                <label>Datum vytáčení</label>
+                <div class="editForm__group">
+                  
+
+                    <input type="date" class="editForm__Input" id="idDatumVytaceni" asp-for="produkcemedu.DatumVytaceni"> 
+                    <span class="errorMsg" id="errDatumVytaceni"></span>
+                   
+                </div>
+                <label>Druh medu</label>
+                <div class="editForm__group">
+
+
+                    <select name="produkcemedu.TypMedu" asp-for="produkcemedu.TypMedu" id="idDruhMedu" class="editForm__Input">
+                        <option value="" disabled selected>Vyberte typ medu</option>
+                        <option value="Lesní">Lesní</option>
+                        <option value="Květový">Květový</option>
+                        <option value="Lipový">Lipový</option>
+                        <option value="Akátový">Akátový</option>
+                        <option value="Jetelový">Jetelový</option>
+                        <option value="Slunečnicový">Slunečnicový</option>
+                        <option value="Jiný">Jiný</option>
+                    </select>
+                    <span class="errorMsg" id="errDruhMedu"></span>
+                  
+                </div> 
+                <label>Množství (v litrech)</label>
+                <div class="editForm__group">
+                 
+
+                        <input type="number" class="editForm__Input" id="idMnozstviMedu" min="0" step="0.25" asp-for="produkcemedu.Mnozstvi">
+                    <span class="errorMsg" id="errMnozstviMedu"></span>
+                 
+                </div>
+                <div class="flex-center">
+                    <button class="editForm__button" href="/">Přidat produkci</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalSeven" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="NoteAdd" class="editForm" id="PoznamkyForm" asp-route-id="@ViewBag.ul.IdUlu" asp-route-idVcelstva="@ViewBag.vcelstvo.IdVcelstva">
+                <h2>Poznámky</h2>
+                <label>Datum</label>
+                <div class="editForm__group">
+                    
+
+                        <input type="date" class="editForm__Input" id="idDate" asp-for="zaznamy.DatumZaznamu">
+                    <span class="errorMsg" id="errDate"></span>
+                  
+                </div>
+                <label>Poznámka</label>
+                <div class="editForm__group">
+                    
+
+                        <input type="text" class="editForm__Input" id="idPoznamky" asp-for="zaznamy.Zaznam">
+                    <span class="errorMsg" id="errPoznamky"></span>
+                   
+                </div>
+
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit">Přidat poznámku</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+}
+<script>
+    let modalBtns = [...document.querySelectorAll(".script")];
+    modalBtns.forEach(function (btn) {
+      btn.onclick = function () {
+        let modal = btn.getAttribute("data-modal");
+        document.getElementById(modal).style.display = "block";
+      };
+    });
+    let closeBtns = [...document.querySelectorAll(".close")];
+    closeBtns.forEach(function (btn) {
+      btn.onclick = function () {
+        let modal = btn.closest(".modal");
+        modal.style.display = "none";
+      };
+    });
+    window.onclick = function (event) {
+      if (event.target.className === "modal") {
+        event.target.style.display = "none";
+      }
+    };
+</script>
+<script>
+  
+    var HiveForm = document.querySelector('#HiveForm');
+    var NazevUlu = document.querySelector('#idNazevUlu');
+    var errNazevUlu = document.querySelector('#errNazevUlu');
+    var TypUlu = document.querySelector('#idTypUlu');
+    var errTypUlu = document.querySelector('#errTypUlu');
+    var NastavkyUl = document.querySelector('#idNastavkyUl');
+    var errNastavkyUl = document.querySelector('#errNastavkyUl');
+    var TypRamku = document.querySelector('#idTypRamku');
+    var errTypRamku = document.querySelector('#errTypRamku');
+    var HmotnostUlu = document.querySelector('#idHmotnostUlu');
+    var errHmotnostUlu = document.querySelector('#errHmotnostUlu')
+    HiveForm.addEventListener('submit', function (e) {
+        if (NazevUlu.value.trim().length === 0) {
+            e.preventDefault();
+            errNazevUlu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errNazevUlu.innerHTML = "";
+
+        }
+        if (TypUlu.value.trim().length === 0) {
+            e.preventDefault();
+            errTypUlu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errTypUlu.innerHTML = "";
+        }
+        if (HmotnostUlu.value == 0) {
+            e.preventDefault();
+            errHmotnostUlu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errHmotnostUlu.innerHTML = "";
+        }
+        if (NastavkyUl.value.trim().length == 0) {
+            e.preventDefault();
+            errNastavkyUl.innerHTML = "Zadejte platnou hodnotu.";
+        }
+        else {
+            errNastavkyUl.innerHTML = "";
+        }
+        if (TypRamku.value.trim().length == 0) {
+            e.preventDefault();
+            errTypRamku.innerHTML = "Zadejte platnou hodnotu.";
+        }
+        else {
+            errTypRamku.innerHTML = "";
+        }
+
+    });
+    var BeehivesForm = document.querySelector('#BeehivesForm');
+    var NazevVcelstva = document.querySelector('#idNazevVcelstva');
+    var errNazevVcelstva = document.querySelector('#errNazevVcelstva');
+    var DruhVcelstva = document.querySelector('#idDruhVcelstva');
+    var errDruhVcelstva = document.querySelector('#errDruhVcelstva');
+    var DatumPridani = document.querySelector('#idDatumPridani');
+    var errDatumPridani = document.querySelector('#errDatumPridani');
+    BeehivesForm.addEventListener('submit', function (e) {
+
+        if (NazevVcelstva.value.trim().length === 0) {
+            e.preventDefault();
+            errNazevVcelstva.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errNazevVcelstva.innerHTML = "";
+        }
+        if (DruhVcelstva.value.trim().length === 0) {
+            e.preventDefault();
+            errDruhVcelstva.innerHTML = "Vyberte si prosím jednou z dostupných možností.";
+        }
+        else {
+            errDruhVcelstva.innerHTML = "";
+
+        }
+        if (!isNaN(DatumPridani.value)) {
+            e.preventDefault();
+            errDatumPridani.innerHTML = "Zadejte platné datum.";
+        }
+        else {
+            errDatumPridani.innerHTML = "";
+
+        }
+    }
+    );
+    var MotherForm = document.querySelector('#MotherForm');
+    var NazevMatky = document.querySelector('#idNazevMatky');
+    var errNazevMatky = document.querySelector('#errNazevMatky');
+    var Puvod = document.querySelector('#idPuvod');
+    var errPuvod = document.querySelector('#errPuvod');
+    var Linie = document.querySelector('#idLinie');
+    var errLinie = document.querySelector('#errLinie');
+    var DatumPridaniMatky = document.querySelector('#idDatumPridaniMatky');
+    var errDatumPridaniMatky = document.querySelector('#errDatumPridaniMatky');
+    MotherForm.addEventListener('submit', function (e) {
+        if (NazevMatky.value.trim().length === 0) {
+            e.preventDefault();
+            errNazevMatky.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errNazevMatky.innerHTML = "";
+        }
+        if (Puvod.value.trim().length === 0) {
+            e.preventDefault();
+            errPuvod.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errPuvod.innerHTML = "";
+        }
+        if (Linie.value.trim().length === 0) {
+            e.preventDefault();
+            errLinie.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errLinie.innerHTML = "";
+        }
+        if (!isNaN(DatumPridaniMatky.value)) {
+            e.preventDefault();
+            errDatumPridaniMatky.innerHTML = "Zadejte platné datum.";
+        }
+        else {
+            errDatumPridaniMatky.innerHTML = "";
+
+        }
+    })
+    var FeedForm = document.querySelector('#FeedForm');
+    var DatumKrmeni = document.querySelector('#idDatumKrmeni');
+    var errDatumKrmeni = document.querySelector('#errDatumKrmeni');
+    var KrmnaLatka = document.querySelector('#idKrmnaLatka');
+    var errKrmnaLatka = document.querySelector('#errKrmnaLatka');
+    var MnozstviKrmeni = document.querySelector('#idMnozstviKrmeni');
+    var errMnozstviKrmeni = document.querySelector('#errMnozstviKrmeni');
+    var JednotkyKrmeni = document.querySelector('#JednotkyKrmeni');
+    var errJednotkyKrmeni = document.querySelector('#errJednotkyKrmeni');
+    FeedForm.addEventListener('submit', function (e) {
+        if (!isNaN(DatumKrmeni.value)) {
+            e.preventDefault();
+            errDatumKrmeni.innerHTML = "Zadejte platné datum.";
+        }
+        else {
+            errDatumKrmeni.innerHTML = "";
+
+        }
+        if (KrmnaLatka.value.trim().length === 0) {
+            e.preventDefault();
+            errKrmnaLatka.innerHTML = "Vyberte si prosím jednou z dostupných možností.";
+        }
+        else {
+            errKrmnaLatka.innerHTML = "";
+        }
+        if (MnozstviKrmeni.value.trim().length === 0) {
+            e.preventDefault();
+            errMnozstviKrmeni.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errMnozstviKrmeni.innerHTML = "";
+        }
+        if (JednotkyKrmeni.value.trim().length === 0) {
+            e.preventDefault();
+            errJednotkyKrmeni.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errJednotkyKrmeni.innerHTML = "";
+        }
+    })
+
+    var MedicineForm = document.querySelector('#MedicineForm');
+    var DatumLeceni = document.querySelector('#idDatumLeceni');
+    var errDatumLeceni = document.querySelector('#errDatumLeceni');
+    var LecebnaLatka = document.querySelector('#idLecebnaLatka');
+    var errLecebnaLatka = document.querySelector('#errLecebnaLatka');
+    var ZpusobOsetreni = document.querySelector('#idZpusobOsetreni');
+    var errZpusobOsetreni = document.querySelector('#errZpusobOsetreni');
+    var MnozstviLeceni = document.querySelector('#idMnozstviLeceni');
+    var errMnozstviLeceni = document.querySelector('#errMnozstviLeceni');
+    var JednotkyKrmeni = document.querySelector('#idJednotkyKrmeni');
+    var errJednotkyKrmeni = document.querySelector('#errJednotkyKrmeni');
+
+    MedicineForm.addEventListener('submit', function (e) {
+        if (!isNaN(DatumLeceni.value)) {
+            e.preventDefault();
+            errDatumLeceni.innerHTML = "Zadejte platné datum.";
+        }
+        else {
+            errDatumLeceni.innerHTML = "";
+
+        }
+        if (LecebnaLatka.value.trim().length === 0) {
+            e.preventDefault();
+            errLecebnaLatka.innerHTML = "Vyberte si prosím jednou z dostupných možností.";
+        }
+        else {
+            errLecebnaLatka.innerHTML = "";
+        }
+        if (ZpusobOsetreni.value.trim().length === 0) {
+            e.preventDefault();
+            errZpusobOsetreni.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errZpusobOsetreni.innerHTML = "";
+        }
+        if (MnozstviLeceni.value.trim().length === 0) {
+            e.preventDefault();
+            errMnozstviLeceni.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errMnozstviLeceni.innerHTML = "";
+        }
+        if (JednotkyKrmeni.value.trim().length === 0) {
+            e.preventDefault();
+            errJednotkyKrmeni.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errJednotkyKrmeni.innerHTML = "";
+        }
+    })
+    var HoneyForm = document.querySelector('#HoneyForm');
+    var DatumVytaceni = document.querySelector('#idDatumVytaceni');
+    var errDatumVytaceni = document.querySelector('#errDatumVytaceni');
+    var DruhMedu = document.querySelector('#idDruhMedu');
+    var errDruhMedu = document.querySelector('#errDruhMedu');
+    var MnozstviMedu = document.querySelector('#idMnozstviMedu');
+    var errMnozstviMedu = document.querySelector('#errMnozstviMedu');
+   
+    HoneyForm.addEventListener('submit', function (e) {
+        if (!isNaN(DatumVytaceni.value)) {
+            e.preventDefault();
+            errDatumVytaceni.innerHTML = "Zadejte platné datum.";
+        }
+        else {
+            errDatumVytaceni.innerHTML = "";
+
+        }
+        if (DruhMedu.value.trim().length === 0) {
+            e.preventDefault();
+            errDruhMedu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errDruhMedu.innerHTML = "";
+        }
+        if (MnozstviMedu.value.trim().length === 0) {
+            e.preventDefault();
+            errMnozstviMedu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errMnozstviMedu.innerHTML = "";
+        }
+
+
+    })
+    var PoznamkyForm = document.querySelector('#PoznamkyForm');
+    var Date = document.querySelector('#idDate');
+    var errDate = document.querySelector('#errDate');
+    var Poznamky = document.querySelector('#idPoznamky');
+    var errPoznamky = document.querySelector('#errPoznamky');
+    PoznamkyForm.addEventListener('submit', function (e) {
+        if (!isNaN(Date.value)) {
+            e.preventDefault();
+            errDate.innerHTML = "Zadejte platné datum.";
+        }
+        else {
+            errDate.innerHTML = "";
+
+        }
+        if (Poznamky.value.trim().length === 0) {
+            e.preventDefault();
+            errPoznamky.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errPoznamky.innerHTML = "";
+        }
+    })
+</script>

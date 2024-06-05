@@ -1,0 +1,59 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.clanky;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+  <script src="https://cdn.tiny.cloud/1/1ruq7hnfm2chkmjtpg1n1mn1anqkaa74n72imqhl8r4zgcx3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+ 
+  <span class="header__links"><a class="links" asp-action="Index"><span class="material-symbols-outlined">
+home
+</span></a><span class="material-symbols-outlined">
+chevron_right
+</span><a asp-action="AdminMenu" class="links">Administrace</a>
+  <span class="material-symbols-outlined">
+chevron_right
+</span><a href="#" class="links">Vložit článek</a> </span>
+
+    <div class="article">
+        <form asp-action="ArticleAdd">
+            <label for="nadpis">Název článku</label>
+            <div class="editForm__group">
+
+
+                    <input type="text" id="nadpis" class="editForm__Input" asp-for="NazevClanku">
+
+
+            </div>
+            <label for="perex">Perex</label>
+            <div class="editForm__group">
+
+
+                <textarea id="Prefix" class="editForm__Input" name="Prefix" style="height: 600px" asp-for="Prefix">Hello, World!</textarea>
+
+            </div>
+            <label for="article" class="margin-top">Obsah článku</label>
+            <div class="editForm__group">
+
+
+                <textarea id="Obsah" asp-for="Obsah" class="editForm__Input" name="Obsah" style="height: 600px">Hello, World!</textarea>
+
+            </div>
+            <di class="flex-center margin-top">
+                <button type="submit" id="btn" class="btn">Přidat článek</button>
+
+            </di>
+        </form>
+    </div>
+    <script>
+      
+    </script>
+    <script>
+        tinymce.init({
+            selector: '#Prefix'
+        });
+
+        tinymce.init({
+            selector: '#Obsah'
+        });
+    </script> 

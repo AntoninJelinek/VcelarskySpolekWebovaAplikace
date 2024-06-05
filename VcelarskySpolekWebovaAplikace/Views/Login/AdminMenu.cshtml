@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a class="links">Administrace</a>
+</span>
+
+<div class="width70">
+    <h1>Úvod</h1>
+
+</div>
+
+<div class="menuContainer width70">
+    @if(this.ViewBag.vcelar.OverenyClen==true)
+    {
+        <div class="menuContainer__item">
+            <a asp-action="ArticleAdd" class="menuContainer__link">
+                <span class="material-symbols-outlined menuContainer__linkIcon">
+                    news
+                </span>
+                <p class="menuContainer__linktext">Přidat člínek</p>
+            </a>
+        </div>
+    }
+   
+    @if(this.ViewBag.vcelar.JeAdmin==true)
+    {
+        <div class="menuContainer__item">
+            <a asp-action="BeekeeperSetRoles" class="menuContainer__link">
+                <span class="material-symbols-outlined menuContainer__linkIcon">
+                    person_edit
+                </span>
+                <p class="menuContainer__linktext">Správa uživatelů</p>
+            </a>
+        </div>
+
+    }
+   
+
+
+</div>

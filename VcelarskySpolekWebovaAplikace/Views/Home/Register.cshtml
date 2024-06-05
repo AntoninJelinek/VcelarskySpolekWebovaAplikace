@@ -1,0 +1,85 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.vcelari
+
+@{
+    ViewData["Title"] = "Registrovat se";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+    <form asp-action="Register" class="loginForm">
+        <div class="loginForm__border">
+            <h1>Registrovat se </h1>
+            <h2>Přihlašovací údaje</h2>
+            <label asp-for="UzivatelskeJmeno">Uživatelské jméno</label>
+            <div class="loginForm__group">
+
+                <input type="text" asp-for="UzivatelskeJmeno" class="loginForm__input">
+            </div>
+            <p  class="errorMsg">@ViewBag.ErrorUsername</p>
+
+            <label asp-for="Heslo">Heslo</label>
+            <div class="loginForm__group">
+
+                <input type="password" asp-for="Heslo" class="loginForm__input">
+            </div>
+            <p class="errorMsg">@ViewBag.ErrorPassword</p>
+
+            <hr>
+            <h2>Osobní údaje</h2>
+            <label asp-for="Jmeno">Jméno</label>
+            <div class="loginForm__group">
+
+                <input type="text" asp-for="Jmeno" class="loginForm__input">
+            </div>
+            <p class="errorMsg">@ViewBag.ErrorName</p>
+
+            <label asp-for="Prijmeni">Příjmení</label>
+            <div class="loginForm__group">
+
+                <input type="text" asp-for="Prijmeni" class="loginForm__input">
+            </div>
+            <p asp-validation-for="Prijmeni" class="text-danger"></p>
+
+            <p class="errorMsg">@ViewBag.ErrorSurname</p>
+
+            <div class="loginForm__group">
+
+                <input type="date" asp-for="DatumNarozeni" class="loginForm__input">
+            </div>
+            <p class="errorMsg">@ViewBag.ErrorBirthdate</p>
+
+
+            <label asp-for="Ulice">Ulice</label>
+            <div class="loginForm__group">
+
+                <input type="text" asp-for="Ulice" class="loginForm__input">
+            </div>
+            <p class="errorMsg">@ViewBag.ErrorStreet</p>
+
+            <label asp-for="Mesto">Město</label>
+            <div class="loginForm__group">
+
+                <input type="text" asp-for="Mesto" class="loginForm__input">
+            </div>
+            <p class="errorMsg">@ViewBag.ErrorCity</p>
+
+            <label asp-for="PSC">PSČ</label>
+            <div class="loginForm__group">
+
+                <input type="text" asp-for="PSC" class="loginForm__input">
+            </div>
+            <p class="errorMsg">@ViewBag.ErrorZip</p>
+
+            <div class="login__button-group">
+                <button type="submit" value="Create" class="login_button">Registrovat se</button>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

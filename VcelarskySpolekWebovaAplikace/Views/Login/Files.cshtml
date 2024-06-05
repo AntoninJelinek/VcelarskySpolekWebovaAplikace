@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span  class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Soubory</a>
+    
+</span>
+
+
+@foreach (soubory soubor in ViewBag.soubory_list)
+{
+    <a class="menu__option-main links" asp-action="Download" asp-route-id="@soubor.idSouboru">
+@*         Héj! Zmeň ten obrázeček, ať je tam ten sůbůrek, jo?
+ *@        <span class="material-symbols-outlined menu__icon">
+            draft
+        </span>
+        <div class="main__option-description">
+            <h2>@soubor.NazevSouboru</h2>
+           
+            @foreach(vcelari vcelar in ViewBag.vcelari)
+            {
+                if(soubor.idAutora==vcelar.IdVcelare)
+                {
+                    <p class="nopadding">Autor: <span>@vcelar.UzivatelskeJmeno</span></p>
+
+                }
+
+            }
+        </div>
+    </a>
+}
+<div class="width70">
+    <form asp-action="Upload" enctype="multipart/form-data">
+        <input type="file" class="editForm__Input" name="file" id="file">
+        <button type="submit" class="btn">Nahrát</button>
+    </form>
+
+</div>

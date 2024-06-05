@@ -1,0 +1,83 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.vcelstva;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<span class="header__links">
+	<a class="links" asp-action="Index">
+		<span class="material-symbols-outlined">
+			home
+		</span>
+	</a><span class="material-symbols-outlined">
+		chevron_right
+	</span><a href="#" class="links">Grafy a exporty</a>
+	
+</span>
+
+@if (this.ViewBag.DataPoints != null)
+{
+	<script src="https://cdn.canvasjs.com/ga/canvasjs.min.js"></script>
+	<script>
+		window.onload = function () {
+
+			var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2", // "light1", "dark1", "dark2"
+				exportEnabled: true,
+				title: {
+					text: @Html.Raw(this.ViewBag.popisek)
+					},
+				data: [{
+					type: "column",
+					dataPoints: @Html.Raw(ViewBag.DataPoints)
+				}]
+			});
+			chart.render();
+
+		}
+	</script>
+}
+
+<h1 class="width70">Grafy a statistiky</h1>
+
+<form asp-action="Stats" class="width70"> 
+	
+	
+	<select name="IdVcelstva" asp-for="IdVcelstva" asp-items="ViewBag.Vcelstva" id="idDruhVcelstva" class="editForm__Input">
+
+
+		<option value="" disabled selected>Vyberte svoje včelstvo.</option>
+
+
+	</select>
+
+	<div class="flex jcc aic">
+		<label>Vyberte období od </label>
+		<input type="date" class="margin" name="first">
+		<label> do </label>
+
+		<input type="date" class="margin" name="last">
+		<button class="btn">Nastavit</button>
+	</div>
+</form>
+@if(this.ViewBag.DataPoints != null)
+{
+	<div id="chartContainer" class="width70 border-orange" style="height: 370px; width: 70%;"></div>
+	<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	
+	<h2 class="width70">Export do sestav</h2>
+	
+		<div class=" flex jcc aic">
+		<a class="btn" asp-action="Export" asp-route-type="csv" >Exportovat do formátu .csv</a>
+		<a class="btn" asp-action="Export" asp-route-type="json" >Exportovat do formátu .json</a>
+		</div>
+
+
+
+
+}
+	
+     

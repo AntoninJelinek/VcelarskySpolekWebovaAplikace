@@ -1,0 +1,271 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.UlyModel;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="MyBees" class="links">Moje včely</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="Location" class="links">Moje stanoviště</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">@this.ViewBag.Stanoviste.NazevStanoviste </a>
+</span>
+
+
+
+<div class="flex-space">
+    <h1 class="nolefrmargin">Moje stanoviště</h1>
+    <div>
+        <a href="#" class="btn script" data-modal="modalOne">Přidat úl</a>
+        <a href="#" class="btn script" data-modal="modalTwo">Upravit stanoviště</a>
+    </div>
+</div>
+
+
+@foreach(uly ul in ViewBag.UlyVcelare)
+{
+    <a class="menu__option-main links" asp-action="HiveDetail" asp-route-id="@ul.IdUlu">
+
+        <span class="material-symbols-outlined menu__icon">
+            inventory_2
+        </span>
+        <div class="main__option-description">
+            <h2>@ul.OznaceniUlu</h2>
+            <p class="nopadding">Typ úlu: <span>@ul.TypUlu</span> </p>
+            <p class="nopadding">Počet nástavku: <span>@ul.PocetNastavku</span></p>
+            <p class="nopadding">Hmotnost úlu bez včel (kg): <span>@ul.HmotnostUlu</span></p>
+        </div>
+    </a>
+}
+
+<div id="modalOne" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="AddHive" id="addHiveForm" asp-route-id="@this.ViewBag.ID" class="editForm">
+                <h2>Nový úl</h2>
+                <label for="place_name">Název úlu</label>
+                <div class="editForm__group">
+                   
+
+                        <input type="text" asp-for="uly.OznaceniUlu" id="idOznaceniUlu" class="editForm__Input ">
+                    <span class="errorMsg" id="errOznaceniUlu"></span>
+
+
+                </div>
+                <label for="place_location">Typ úlu</label>
+                <div class="editForm__group">
+                  
+
+                        <input type="text" asp-for="uly.TypUlu" id="idTypUlu" class="editForm__Input ">
+                    <span class="errorMsg" id="errTypUlu"></span>
+
+
+                </div>
+                <label>Hmotnost úlu v kg (úhlová váha)</label>
+                <div class="editForm__group">
+
+
+                    <input type="number" min="0" step="0.5" asp-for="uly.HmotnostUlu" id="idHmotnostUlu" class="editForm__Input ">
+                    <span class="errorMsg" id="errHmotnostUlu"></span>
+
+
+                </div>
+                <label>Počet nástavků v úlu</label>
+                <div class="editForm__group">
+                   
+
+                        <input type="number" min="0" class="editForm__Input" asp-for="uly.PocetNastavku" id="idPocetNastavku">
+                    <span class="errorMsg" id="errPocetNastavku"></span>
+
+
+                </div>
+                <label>Typ rámků</label>
+                <div class="editForm__group">
+                  
+
+                        <input type="text"  class="editForm__Input" asp-for="uly.TypRamku" id="idTypRamku">
+                    <span class="errorMsg" id="errTypRamku"></span>
+                </div>
+
+                <div class="flex-center">
+                    <button class="editForm__button" >Přidat úl</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="modalTwo" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form asp-action="UpdateLocation" class="editForm" id="form">
+                <h2>Nové stanoviště</h2>
+                <label>Upravit stanoviště</label>
+                <div class="editForm__group">
+                 
+
+                        <input type="text" id="StanName" asp-for="stanoviste.NazevStanoviste" value="@ViewBag.Stanoviste.NazevStanoviste" class="editForm__Input ">
+                        <span class="errorMsg" id="errStanName"></span>
+
+                    
+
+                </div>
+                <label>Umístění stanoviště</label>
+                <div class="editForm__group">
+                   
+
+                        <input type="text" id="StanLocation" value="@ViewBag.Stanoviste.UmisteniStanoviste" asp-for="stanoviste.UmisteniStanoviste" class="editForm__Input ">
+                        <span class="errorMsg" id="errStanLocation"></span>
+                    
+
+                </div>
+                <label>Typ stanoviště</label>
+                <div class="editForm__group">
+
+                        <input type="text" id="StanType" value="@ViewBag.Stanoviste.TypStanoviste" asp-for="stanoviste.TypStanoviste" class="editForm__Input ">
+                        <span class="errorMsg" id="errStanType"></span>
+                    
+
+                </div>
+
+                <div class="flex-center">
+                    <button type="submit" value="Create" class="editForm__button" href="/">Přidat stanoviště</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let modalBtns = [...document.querySelectorAll(".script")];
+    modalBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.getAttribute("data-modal");
+            document.getElementById(modal).style.display = "block";
+        };
+    });
+    let closeBtns = [...document.querySelectorAll(".close")];
+    closeBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.closest(".modal");
+            modal.style.display = "none";
+        };
+    });
+    window.onclick = function (event) {
+        if (event.target.className === "modal") {
+            event.target.style.display = "none";
+        }
+    };
+</script>
+<script>
+    var form = document.querySelector('#form');
+    var StanName = document.querySelector('#StanName');
+    var StanLocation = document.querySelector('#StanLocation')
+    var StanType = document.querySelector('#StanType');
+    var errStanName = document.querySelector('#errStanName');
+    var errStanLocation = document.querySelector('#errStanLocation');
+    var errStanType = document.querySelector('#errStanType');
+    
+
+    form.addEventListener('submit', function (e) {
+        if (StanName.value.trim().length === 0) {
+            e.preventDefault();
+            errStanName.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errStanName.innerHTML = "";
+
+        }
+        if (StanLocation.value.trim().length === 0) {
+            e.preventDefault();
+            errStanLocation.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errStanLocation.innerHTML = "";
+        }
+        if (StanType.value.trim().length === 0) {
+            e.preventDefault();
+            errStanType.innerHTML = "Pole nesmí být prázdné.";
+        }
+        if (PocetNastavku.value == 0) {
+            e.preventDefault();
+            console.log("Je 0");
+            errPocetNastavku.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errPocetNastavku.innerHTML = "";
+            console.log("není 0");
+        }
+        else {
+            errStanType.innerHTML = "";
+        }
+    })
+
+    var addHiveForm = document.querySelector('#addHiveForm');
+    var OznaceniUlu = document.querySelector('#idOznaceniUlu');
+    var errOznaceniUlu = document.querySelector('#errOznaceniUlu');
+    var TypUlu = document.querySelector('#idTypUlu');
+    var errTypUlu = document.querySelector('#errTypUlu');
+    var PocetNastavku = document.querySelector('#idPocetNastavku');
+    var errPocetNastavku = document.querySelector('#errPocetNastavku');
+    var TypRamku = document.querySelector('#idTypRamku');
+    var errTypRamku = document.querySelector('#errTypRamku');
+    var HmotnostUlu = document.querySelector('#idHmotnostUlu');
+    var errHmotnostUlu = document.querySelector('#errHmotnostUlu');
+
+    addHiveForm.addEventListener('submit', function (e) {
+        if (OznaceniUlu.value.trim().length === 0) {
+            e.preventDefault();
+            errOznaceniUlu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errOznaceniUlu.innerHTML = "";
+
+        }
+        if (TypUlu.value.trim().length === 0) {
+            e.preventDefault();
+            errTypUlu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errTypUlu.innerHTML = "";
+        }
+        if (PocetNastavku.value == 0) {
+            e.preventDefault();
+            console.log("Je 0");
+            errPocetNastavku.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errPocetNastavku.innerHTML = "";
+            console.log("není 0");
+        }
+        if (TypRamku.value.trim().length === 0) {
+            e.preventDefault();
+            errTypRamku.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errTypRamku.innerHTML = "";
+        }
+        if (HmotnostUlu.value == 0) {
+            e.preventDefault();
+            errHmotnostUlu.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errHmotnostUlu.innerHTML = "";
+        }
+    })
+
+</script>

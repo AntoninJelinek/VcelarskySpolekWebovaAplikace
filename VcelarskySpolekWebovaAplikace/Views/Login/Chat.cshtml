@@ -1,0 +1,111 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.komentare;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Diskusní chat";
+
+}
+
+<span class="header__links">
+    <a class="links" asp-action="MyBees">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Diskusní chat</a>
+ 
+</span>
+<h1 class="main__h1 width70">Diskuzní chat</h1>
+<div class="chat__buttons">
+    @if(ViewBag.counter != 0)
+    {
+        <a asp-action="Chat" asp-route-id="@ViewBag.counterPrevious" class="chat__buttons-previous">
+            <span class="material-symbols-outlined">
+                navigate_before
+            </span><span>Předchozí</span>
+        </a>
+    }
+    @if(ViewBag.PocetKomentaru>=ViewBag.CelkemKomentaru)
+    {
+        <a asp-route-id="@ViewBag.counterNext" class="chat__buttons-next">
+            <span>Následující</span><span class="material-symbols-outlined">
+                navigate_next
+            </span>
+        </a>
+    }
+   
+</div>
+<div class="chat">
+    <div class="chatgroup">
+    @foreach(komentare komentlist in ViewBag.VKomentare)
+    {
+      
+                <div class="chat_header">
+                    <p>@komentlist.Autor | @komentlist.DatumVytvoreni.ToString("dd/MM/yyyy")</p>
+                </div>
+                if (komentlist.Autor == this.Context.Session.GetString("login"))
+                {
+                    <div class="chat__message chat__message__send">
+                        <div class="chat__userIcon">
+                            <span class="material-symbols-outlined usericon">
+                                account_circle
+                            </span>
+
+                        </div>
+                        <div class="chat__message">
+                            @komentlist.Komentar
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="chat__message chat__message__delivered">
+                        <div class="chat__userIcon">
+                            <span class="material-symbols-outlined usericon">
+                                account_circle
+                            </span>
+
+                        </div>
+                        <div class="chat__message">
+                            @komentlist.Komentar
+                        </div>
+                    </div>
+                }
+
+        
+
+    }
+   
+    
+
+    </div>
+   
+   
+</div>
+<div class="chat__textbox">
+    <form asp-action="Chat"  class="chat__textbox-form">
+        @if(ViewBag.EmptyValue == true)
+        {
+            <input type="text" asp-for="Komentar" value="" class="chat__textbox-form-input">
+        }
+        else
+        {
+            <input type="text" asp-for="Komentar" class="chat__textbox-form-input">
+
+        }
+        <button type="submit" value="Create" class="chat__textbox-form-link">
+            <span class="material-symbols-outlined chat__textbox-form-link-icon">
+                send
+            </span>
+        </button>
+
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

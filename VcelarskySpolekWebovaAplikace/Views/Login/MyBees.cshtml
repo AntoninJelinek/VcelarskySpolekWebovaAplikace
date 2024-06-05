@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Moje Včely</a>
+</span>
+
+
+<div class="width70">
+    <h1>Moje včely</h1>
+
+</div>
+
+<div class="menuContainer width70">
+    <div class="menuContainer__item">
+        <a class="menuContainer__link" asp-action="Location">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                location_on
+            </span>
+            <p class="menuContainer__linktext">Moje stanoviště</p>
+        </a>
+    </div>
+    <div class="menuContainer__item">
+        <a asp-action="HoneySale" class="menuContainer__link">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                attach_money
+            </span>
+            <p class="menuContainer__linktext">Prodej medu</p>
+        </a>
+    </div>
+    <div class="menuContainer__item">
+        <a  class="menuContainer__link" asp-action="Medicine">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                healing
+            </span>
+            <p class="menuContainer__linktext">Správa léčiv</p>
+        </a>
+    </div>
+    <div class="menuContainer__item">
+        <a class="menuContainer__link" asp-action="Mother">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                    emoji_nature
+            </span>
+            <p class="menuContainer__linktext">Matky</p>
+        </a>
+    </div>
+    <div class="menuContainer__item">
+        <a asp-action="Feed" class="menuContainer__link">
+            <span class="material-symbols-outlined menuContainer__linkIcon">
+                glucose
+            </span>
+            <p class="menuContainer__linktext">Správa krmiv</p>
+        </a>
+    </div>
+
+
+
+
+
+
+</div>

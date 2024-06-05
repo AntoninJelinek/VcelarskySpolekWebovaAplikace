@@ -1,0 +1,145 @@
+﻿@model VcelarskySpolekWebovaAplikace.Models.leceni
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<span class="header__links">
+    <a class="links" asp-action="Index">
+        <span class="material-symbols-outlined">
+            home
+        </span>
+    </a><span class="material-symbols-outlined">
+        chevron_right
+    </span><a asp-action="MyBees" class="links">Moje včely</a>
+    <span class="material-symbols-outlined">
+        chevron_right
+    </span><a href="#" class="links">Správa léčiv</a>
+</span>
+
+
+
+<div class="flex-space">
+    <h1 class="nolefrmargin">Správa léčiv</h1>
+
+
+</div>
+
+
+
+<div class="flex-space">
+    <h2>Přehled léčiv</h2>
+    <div>
+        <button class="btn script" data-modal="modalOne">Přidat léčivo</button>
+
+    </div>
+</div>
+<div class="width70_margin-btn Table__border">
+    <table class="tb">
+        <thead>
+            <tr>
+                <td>Název léčiva</td>
+                <td>Jednotly</td>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(leceni leceni in ViewBag.leceni)
+            {
+                <tr>
+                    <td>@leceni.NazevLeceni</td>
+                    <td>@leceni.Jednotky</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div id="modalOne" class="modal">
+    <div class="modal-content">
+        <div class="contact-form">
+            <a class="close">&times;</a>
+            <form  class="editForm" id="MedicineForm" asp-action="Medicine">
+                <h2>Přidat krmivo</h2>
+                <div class="editForm__group">
+
+                    <label for="place_name">Název léčiva</label>
+                    <input type="text" id="idNazevKrmiva" class="editForm__Input" asp-for="NazevLeceni">
+                    <span class="errorMsg" id="errNazevKrmiva"></span>
+
+
+
+                </div>
+                <div class="editForm__group">
+                    <label for="place_location">Jednotky</label>
+
+                    <input type="text" id="idJednotky" class="editForm__Input" asp-for="Jednotky">
+                    <span class="errorMsg" id="errJednotky"></span>
+
+
+
+                </div>
+
+                <div class="flex-center">
+                    <button class="editForm__button" type="submit" value="Create">Přidat</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let modalBtns = [...document.querySelectorAll(".script")];
+    modalBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.getAttribute("data-modal");
+            document.getElementById(modal).style.display = "block";
+        };
+    });
+    let closeBtns = [...document.querySelectorAll(".close")];
+    closeBtns.forEach(function (btn) {
+        btn.onclick = function () {
+            let modal = btn.closest(".modal");
+            modal.style.display = "none";
+        };
+    });
+    window.onclick = function (event) {
+        if (event.target.className === "modal") {
+            event.target.style.display = "none";
+        }
+    };
+</script>
+<script>
+    var MedicineForm = document.querySelector('#MedicineForm');
+    var NazevKrmiva = document.querySelector('#idNazevKrmiva');
+    var errNazevKrmiva = document.querySelector('#errNazevKrmiva');
+    var Jednotky = document.querySelector('#idJednotky');
+    var errJednotky = document.querySelector('#errJednotky')
+
+    MedicineForm.addEventListener('submit', function (e) {
+        if (NazevKrmiva.value.trim().length === 0) {
+            e.preventDefault();
+            errNazevKrmiva.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errNazevKrmiva.innerHTML = "";
+        }
+        if (Jednotky.value.trim().length === 0) {
+            e.preventDefault();
+            errJednotky.innerHTML = "Pole nesmí být prázdné.";
+        }
+        else {
+            errJednotky.innerHTML = "";
+        }
+    })
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
