@@ -4,7 +4,7 @@
 
 <h2>How to setup</h2>
 <ol>
-  <li>In first, import the <code>dbspolek 2.sql</code> file into your MySQL database (I recommend use phpMyAdmin for this).</li>
+  <li>In first, import the <code>dbspolek.sql</code> file into your MySQL database (I recommend use phpMyAdmin for this).</li>
   <li>In the application, open <code>Context.cs</code> file inside <code>Model</code> folder and change the following string in the <code>OnConfiguring</code> method:</li>
   <pre>
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
